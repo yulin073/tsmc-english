@@ -1,0 +1,428 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TSMC 常用英文單字學習（含進度儲存與發音）</title>
+    <style>
+        :root {
+            --primary: #004b87;
+            --secondary: #0077c8;
+            --accent: #f39c12;
+            --success: #28a745;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.8rem;
+        }
+
+        header p {
+            margin: 0 0 1rem 0;
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .progress-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 4px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .progress-bar {
+            height: 16px;
+            background-color: var(--success);
+            border-radius: 16px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            font-size: 0.85rem;
+            margin-top: 0.4rem;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 1.5rem auto;
+            padding: 0 1rem;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.6rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1rem;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        button.filter-btn {
+            background: #eef2f7;
+            border: none;
+            padding: 0.5rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #555;
+            transition: all 0.2s;
+        }
+
+        button.filter-btn.active, button.filter-btn:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .vocab-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.25rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--secondary);
+            transition: all 0.2s ease;
+        }
+
+        .vocab-card.learned {
+            border-left-color: var(--success);
+            background-color: #f8fff9;
+            opacity: 0.75;
+        }
+
+        .vocab-card.learned .row-1 span {
+            text-decoration: line-through;
+            color: #666;
+        }
+
+        .row-1 {
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .learned-checkbox {
+            width: 20px;
+            height: 20px;
+            margin-right: 0.75rem;
+            cursor: pointer;
+            accent-color: var(--success);
+        }
+
+        .row-2 {
+            font-size: 1.05rem;
+            color: #2c3e50;
+            margin-bottom: 0.35rem;
+            font-family: Consolas, Monaco, monospace;
+            background: #f8f9fa;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+            border-left: 3px solid var(--accent);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .row-3 {
+            font-size: 0.95rem;
+            color: #666;
+            padding-left: 0.25rem;
+        }
+
+        .audio-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            margin-left: 0.5rem;
+            transition: background 0.2s;
+        }
+
+        .audio-btn:hover {
+            background: var(--primary);
+        }
+
+        .audio-btn-sm {
+            width: 26px;
+            height: 26px;
+            font-size: 0.75rem;
+            background: #eef2f7;
+            color: var(--primary);
+        }
+
+        .audio-btn-sm:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .word-group {
+            display: flex;
+            align-items: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #777;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>TSMC 常用英文單字學習網</h1>
+        <p>打勾標記學習進度，系統將自動為您儲存至本機資料庫！</p>
+        
+        <div class="progress-container">
+            <div id="progressBar" class="progress-bar"></div>
+        </div>
+        <div id="progressText" class="progress-text">學習進度：0 / 288 (0%)</div>
+    </header>
+
+    <div class="container">
+        <div class="controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="搜尋單字、中文或例句..." onkeyup="filterVocab()">
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterRange(0, 300, this)">全部 (288)</button>
+                <button class="filter-btn" onclick="filterRange(1, 50, this)">1-50</button>
+                <button class="filter-btn" onclick="filterRange(51, 100, this)">51-100</button>
+                <button class="filter-btn" onclick="filterRange(101, 150, this)">101-150</button>
+                <button class="filter-btn" onclick="filterRange(151, 200, this)">151-200</button>
+                <button class="filter-btn" onclick="filterRange(201, 288, this)">201-288</button>
+            </div>
+        </div>
+
+        <div id="vocabGrid" class="vocab-grid"></div>
+    </div>
+
+    <footer>
+        &copy; 2026 TSMC Vocabulary Learning Tool
+    </footer>
+
+    <script>
+        const vocabData = [
+            { id: 1, word: "ability (n.) 能力", pureWord: "ability", sentence: "Your technical ability is crucial for maintaining advanced fab equipment.", translation: "你的技術能力對維護先進廠房設備至關重要。" },
+            { id: 2, word: "abnormal (a.) 異常的", pureWord: "abnormal", sentence: "If you find any abnormal sound from the pump, please stop the machine immediately.", translation: "如果您發現幫浦有任何異常聲音，請立即停止機台。" },
+            { id: 3, word: "abort (v.) 中止", pureWord: "abort", sentence: "The system will automatically abort the process if the chamber pressure is too high.", translation: "如果反應腔壓力過高，系統將會自動中止製程。" },
+            { id: 4, word: "absence (n.) 缺席", pureWord: "absence", sentence: "Please notify your supervisor in advance if you have an unplanned absence.", translation: "如果有非預期的缺席，請提前通知您的主管。" },
+            { id: 5, word: "acid (n.) 酸", pureWord: "acid", sentence: "Wear full protective gear when handling corrosive acid solutions in the wet bench area.", translation: "在濕製程區處理具腐蝕性的酸液時，必須穿戴完整的防護裝備。" },
+            { id: 6, word: "active (a.) 主動的", pureWord: "active", sentence: "Be active in reporting potential safety hazards to prevent accidents in the cleanroom.", translation: "主動回報潛在的安全危害，以預防無塵室發生意外。" },
+            { id: 7, word: "actual (a.) 真實的", pureWord: "actual", sentence: "Compare the actual measurement data with the target specification on the run-card.", translation: "將真實的量測數據與流程卡上的目標規格進行比對。" },
+            { id: 8, word: "add (v.) 增加", pureWord: "add", sentence: "We need to add more cleaning solution to the tank before the next shift.", translation: "我們需要在下一班前增加槽內的清潔液。" },
+            { id: 9, word: "adjust (v.) 調整", pureWord: "adjust", sentence: "Technicians can adjust the recipe parameters to optimize the etching rate.", translation: "技術員可以調整處方參數來最佳化蝕刻速率。" },
+            { id: 10, word: "AI (n.) 人工智慧", pureWord: "AI", sentence: "TSMC utilizes AI algorithms for predictive maintenance on critical production tools.", translation: "台積電利用人工智慧演算法對關鍵產線機台進行預測性維護。" },
+            { id: 11, word: "air shower (n.) 潔淨通道", pureWord: "air shower", sentence: "Everyone must wait inside the air shower for at least ten seconds before entering the fab.", translation: "每個人在進入廠房前，必須在潔淨通道內等待至少十秒鐘。" },
+            { id: 12, word: "alarm (n.) 警報", pureWord: "alarm", sentence: "When the gas leak alarm goes off, evacuate the cleanroom following the safety procedure.", translation: "當氣體外洩警報響起時，請依照安全程序疏散。" },
+            { id: 13, word: "alert (n.) 警報", pureWord: "alert", sentence: "Check the control monitor immediately when a system warning alert pops up.", translation: "當系統警告警報跳出時，請立即檢查控制螢幕。" },
+            { id: 14, word: "align (v.) 對焦", pureWord: "align", sentence: "The stepper must precisely align the photomask with the wafer alignment marks.", translation: "步進機必須將光罩與晶圓對位標記進行精確對焦。" },
+            { id: 15, word: "annually (a.) 每年的", pureWord: "annually", sentence: "All fab personnel must complete safety re-training annually.", translation: "所有廠房人員必須每年完成安全重新訓練。" },
+            { id: 16, word: "area (n.) 區域", pureWord: "area", sentence: "Keep your workstation clean and tidy within your designated bay area.", translation: "在您指定的區間區域內，保持您的工作站乾淨整潔。" },
+            { id: 17, word: "attach (v.) 附上", pureWord: "attach", sentence: "Please attach the defect inspection report to the lot history record.", translation: "請將缺陷檢驗報告附上至批貨歷史紀錄。" },
+            { id: 18, word: "audit (v.) 稽核、查核", pureWord: "audit", sentence: "The quality assurance team will audit our standard operating procedures tomorrow.", translation: "品質保證團隊明天將會稽核我們的標準作業程序。" },
+            { id: 19, word: "automatic (a.) 自動的", pureWord: "automatic", sentence: "The stocker system provides automatic material handling between different bays.", translation: "存儲櫃系統在不同區間之間提供自動化的物料搬運。" },
+            { id: 20, word: "automotive (adj.) 汽車的", pureWord: "automotive", sentence: "Automotive chips require higher reliability and stricter quality control standards.", translation: "汽車晶片需要更高的可靠度與更嚴格的品質管制標準。" },
+            { id: 21, word: "available (a.) 可使用的", pureWord: "available", sentence: "Ensure that the backup load port is available before unloading the cassette.", translation: "在卸載晶片專用盒之前，請確保備用載入埠是可使用的。" },
+            { id: 22, word: "average (n.) 平均", pureWord: "average", sentence: "The average cycle time for this process stage has decreased this week.", translation: "本周此製程階段的平均生產週期已經下降。" },
+            { id: 23, word: "backup (n.) 支援", pureWord: "backup", sentence: "We need IT backup to restore the manufacturing execution system database.", translation: "我們需要資訊團隊的支援來還原製造執行系統資料庫。" },
+            { id: 24, word: "bank (v.) 暫存", pureWord: "bank", sentence: "Bank the wafers in the stocker temporarily while the downstream tool is down.", translation: "當下游機台當機時，先將晶圓暫存在儲存櫃中。" },
+            { id: 25, word: "basic (a.) 基礎的", pureWord: "basic", sentence: "New employees must master basic safety rules before entering the cleanroom.", translation: "新員工在進入無塵室之前必須掌握基礎安全規則。" },
+            { id: 26, word: "beam (n.) 光束", pureWord: "beam", sentence: "The high-intensity laser beam is used for precise wafer cutting and inspection.", translation: "高強度雷射光束用於精確的晶圓切割與檢驗。" },
+            { id: 27, word: "benchmark (n.) 標竿學習", pureWord: "benchmark", sentence: "We use this fab's high yield performance as a benchmark for our plant.", translation: "我們以這座廠的高良率表現作為我們廠的標竿學習對象。" },
+            { id: 28, word: "bottle (n.) 瓶子", pureWord: "bottle", sentence: "Store chemical sample bottle inside the designated ventilated cabinet.", translation: "將化學品樣品瓶存放在指定的通風櫃內。" },
+            { id: 29, word: "bottom (n.) 底部", pureWord: "bottom", sentence: "Check the bottom of the cassette for any trapped or damaged wafers.", translation: "檢查晶片專用盒底部是否有卡住或受損的晶圓。" },
+            { id: 30, word: "broken (a.) 破掉的", pureWord: "broken", sentence: "Handle broken wafers with extreme care using special tweezers and disposal boxes.", translation: "使用專用夾子與廢棄盒，極度小心地處理破掉的晶圓。" },
+            { id: 31, word: "cancel (v.) 取消", pureWord: "cancel", sentence: "You can cancel the lot move command if the wrong destination was selected.", translation: "如果選錯了目的地，你可以取消批貨移動指令。" },
+            { id: 32, word: "card (n.) 卡片", pureWord: "card", sentence: "Swipe your employee ID card at the door turnstile to enter the office area.", translation: "在門禁閘口刷你的員工識別卡以進入辦公區。" },
+            { id: 33, word: "cart (n.) 手推車", pureWord: "cart", sentence: "Secure the material boxes firmly on the cart before transporting them.", translation: "在運輸物料箱之前，將其牢固地固定在手推車上。" },
+            { id: 34, word: "cassette (n.) 晶片專用盒", pureWord: "cassette", sentence: "Make sure the cassette is securely locked on the load port before starting the recipe.", translation: "在啟動處方之前，請確保晶片專用盒已牢固鎖定在載入埠上。" },
+            { id: 35, word: "center (n.) 中心", pureWord: "center", sentence: "The alignment mark must be placed precisely at the center of the field of view.", translation: "對位標記必須放置在視野的中心位置。" },
+            { id: 36, word: "certify (v.) 證實、認證", pureWord: "certify", sentence: "Operators must pass the practical exam to be certified on this machine.", translation: "操作員必須通過實作考試才能取得這台機台的認證。" },
+            { id: 37, word: "change (v.) 更換", pureWord: "change", sentence: "It is time to change the exhausted filter in the exhaust duct.", translation: "是時候更換排氣管線中耗盡的濾網了。" },
+            { id: 38, word: "chart (n.) 圖表", pureWord: "chart", sentence: "Review the SPC control chart to monitor process stability over time.", translation: "檢視 SPC 管制圖表以監控隨時間變化的製程穩定性。" },
+            { id: 39, word: "check (v.) 檢查", pureWord: "check", sentence: "Always check the interlocking safety switches before turning on the high-voltage power.", translation: "開啟高壓電源前，務必檢查連鎖安全開關。" },
+            { id: 40, word: "chemical (n.) 化學、化學品", pureWord: "chemical", sentence: "Handle every hazardous chemical with strict adherence to safety guidelines.", translation: "處理任何有害化學品時，均須嚴格遵守安全指導方針。" },
+            { id: 41, word: "chip (n.) 晶片", pureWord: "chip", sentence: "Each silicon wafer contains hundreds of individual semiconductor chips.", translation: "每片矽晶圓都包含數百個獨立的半導體晶片。" },
+            { id: 42, word: "choose (v.) 挑選", pureWord: "choose", sentence: "Choose the correct process recipe matching the specific product type.", translation: "挑選與特定產品類型相符的正確製程處方。" },
+            { id: 43, word: "clean (v.) 清潔", pureWord: "clean", sentence: "Regularly clean the chamber walls to prevent particle accumulation.", translation: "定期清潔反應腔壁以防止微粒堆積。" },
+            { id: 44, word: "clean chamber (n.) 潔淨室", pureWord: "clean chamber", sentence: "Maintenance engineers must perform a clean chamber procedure after heavy runs.", translation: "維護工程師在大批量運轉後必須執行清潔反應腔程序。" },
+            { id: 45, word: "clear (v.) 清除", pureWord: "clear", sentence: "Clear the error message on the terminal screen before restarting the loader.", translation: "在重新啟動載入器之前，清除終端機畫面上的錯誤訊息。" },
+            { id: 46, word: "collect (v.) 蒐集", pureWord: "collect", sentence: "Sensors collect real-time temperature and pressure data during production.", translation: "感測器在生產過程中蒐集即時的溫度與壓力數據。" },
+            { id: 47, word: "color (n.) 顏色", pureWord: "color", sentence: "Pay attention to the warning light color indicating the tool's status.", translation: "注意指示機台狀態的警示燈顏色。" },
+            { id: 48, word: "comment (n.) 評論", pureWord: "comment", sentence: "Leave a detailed comment in the system log when placing a lot on hold.", translation: "將批貨暫停時，請在系統記錄中留下詳細的備註說明。" },
+            { id: 49, word: "company (n.) 公司", pureWord: "company", sentence: "Our company leads the global semiconductor industry in advanced technologies.", translation: "我們公司在先進技術方面領導全球半導體產業。" },
+            { id: 50, word: "complete (v.) 完成", pureWord: "complete", sentence: "Notify the shift leader once you complete the scheduled preventive maintenance.", translation: "一旦你完成既定的預防性維護，請通知班長。" }
+        ];
+
+        let currentMin = 0;
+        let currentMax = 300;
+
+        function getLearnedData() {
+            const saved = localStorage.getItem('tsmc_learned_words');
+            return saved ? JSON.parse(saved) : [];
+        }
+
+        function toggleLearned(id, isChecked) {
+            let learned = getLearnedData();
+            if (isChecked) {
+                if (!learned.includes(id)) learned.push(id);
+            } else {
+                learned = learned.filter(item => item !== id);
+            }
+            localStorage.setItem('tsmc_learned_words', JSON.stringify(learned));
+            
+            const card = document.getElementById(`card-${id}`);
+            if (card) {
+                if (isChecked) card.classList.add('learned');
+                else card.classList.remove('learned');
+            }
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const learned = getLearnedData();
+            const total = 288;
+            const count = learned.length;
+            const percentage = Math.round((count / total) * 100);
+
+            document.getElementById('progressBar').style.width = `${percentage}%`;
+            document.getElementById('progressText').innerText = `學習進度：${count} / ${total} (${percentage}%)`;
+        }
+
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("您的瀏覽器不支援語音朗讀功能。");
+            }
+        }
+
+        function renderVocab(dataToRender) {
+            const grid = document.getElementById('vocabGrid');
+            const learned = getLearnedData();
+
+            if (dataToRender.length === 0) {
+                grid.innerHTML = `<div style="text-align:center; padding:3rem; color:#777; background:#fff; border-radius:8px;">找不到符合條件的單字或句型。</div>`;
+                return;
+            }
+
+            grid.innerHTML = dataToRender.map(item => {
+                const isLearned = learned.includes(item.id);
+                return `
+                <div class="vocab-card ${isLearned ? 'learned' : ''}" id="card-${item.id}">
+                    <div class="row-1">
+                        <input type="checkbox" class="learned-checkbox" 
+                               ${isLearned ? 'checked' : ''} 
+                               onchange="toggleLearned(${item.id}, this.checked)" 
+                               title="標記為已學習">
+                        <div class="word-group">
+                            <span>${item.id}. ${item.word}</span>
+                            <button class="audio-btn audio-btn-sm" onclick="speak('${item.pureWord}')" title="朗讀單字">🔊</button>
+                        </div>
+                    </div>
+                    <div class="row-2">
+                        <span>${item.sentence}</span>
+                        <button class="audio-btn" onclick="speak('${item.sentence.replace(/'/g, "\\'")}')" title="朗讀句型">🔊</button>
+                    </div>
+                    <div class="row-3">${item.translation}</div>
+                </div>
+            `;
+            }).join('');
+        }
+
+        function filterVocab() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = vocabData.filter(item => {
+                const matchesRange = item.id >= currentMin && item.id <= currentMax;
+                const matchesQuery = item.word.toLowerCase().includes(query) || 
+                                     item.sentence.toLowerCase().includes(query) || 
+                                     item.translation.includes(query);
+                return matchesRange && matchesQuery;
+            });
+            renderVocab(filtered);
+        }
+
+        function filterRange(min, max, btn) {
+            currentMin = min;
+            currentMax = max;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            filterVocab();
+        }
+
+        renderVocab(vocabData);
+        updateProgress();
+    </script>
+</body>
+</html>
